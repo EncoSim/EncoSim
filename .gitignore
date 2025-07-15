@@ -1,9 +1,14 @@
 #Mac Finder
 .DS_Store
 .DS_Store?
+
 # Python
 *.pyc
 .spec
+__pycache__
+
+# editor
+.vscode
 
 #Changing Files
 simulation_parameters.json
