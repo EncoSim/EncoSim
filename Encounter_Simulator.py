@@ -286,12 +286,12 @@ def full_statistical_recap(repetition, fighters):
     text_result = spell_cast_recap(repetition, fighters, text_result)
 
 
-    if getattr(sys, 'frozen', False):
-        application_path = os.path.dirname(sys.executable)
-    elif __file__:
-        application_path = os.path.dirname(__file__)
-    f = open(application_path + '/simulation_result.txt', 'w')
-    f.write(text_result)
+    # if getattr(sys, 'frozen', False):
+    #     application_path = os.path.dirname(sys.executable)
+    # elif __file__:
+    #     application_path = os.path.dirname(__file__)
+    # f = open(application_path + '/simulation_result.txt', 'w')
+    # f.write(text_result)
 
     return text_result
 
