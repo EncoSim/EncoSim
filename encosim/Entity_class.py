@@ -3,6 +3,7 @@ from .Dmg_class import dmg
 from . import AI_class # import AI
 from . import Token_class # import *
 from . import Spell_class # import *
+from . import paths
 
 import inspect
 from random import random, shuffle
@@ -14,15 +15,10 @@ import sys
 class entity:                                          #A Character
     def __init__(self, name, team, DM, archive = False, external_json = False):                  #Atk - Attack [+x to Hit, mean dmg]
 
-        if getattr(sys, 'frozen', False):
-            application_path = os.path.dirname(sys.executable)
-        else:
-            application_path = os.path.dirname(__file__)
-
         if archive == False:
-            path = application_path + '/Entities/' + str(name) + '.json'
+            path = paths.ENTITIES / (str(name) + '.json')
         else:
-            path = application_path + '/Archive/' + str(name) + '.json'
+            path = paths.ARCHIVE / (str(name) + '.json')
 
         if external_json == False:
             file = open(path)

@@ -285,14 +285,6 @@ def full_statistical_recap(repetition, fighters):
     text_result += '----SPELLS CAST----\n'
     text_result = spell_cast_recap(repetition, fighters, text_result)
 
-
-    # if getattr(sys, 'frozen', False):
-    #     application_path = os.path.dirname(sys.executable)
-    # else:
-    #     application_path = os.path.dirname(__file__)
-    # f = open(application_path + '/simulation_result.txt', 'w')
-    # f.write(text_result)
-
     return text_result
 
 def calculate_difficulty(TPKChance, Length, DeathProbabilities, Unconscious, DeathNumber, TeamHealth):

@@ -9,6 +9,7 @@ import json
 #from ttkbootstrap.constants import *
 import platform #for figuring out windows/macOS
 from .run_full_stat_recap import run_full_stat_recap
+from . import paths
 
 #Controlls the Pages
 class Controller(Frame):
@@ -92,12 +93,8 @@ class Controller(Frame):
         self.HomePage.tkraise() # show the Homepage first
  
     def Load_Entities(self): #Entities will be loaded as Objects in Controller
-        if getattr(sys, 'frozen', False):
-            application_path = os.path.dirname(sys.executable)
-        else:
-            application_path = os.path.dirname(__file__)
         
-        Entities_File_List = os.listdir(application_path + '/Entities') #list all files in Entities
+        Entities_File_List = os.listdir(paths.ENTITIES) #list all files in Entities
         Entities_List = []
         for x in Entities_File_List:
             if '.json' in x:
@@ -107,7 +104,7 @@ class Controller(Frame):
         Entities = []
         for name in Entities_List:
             try: #try to initialize
-                file = open(application_path + '/Entities/' + name)
+                file = open(paths.ENTITIES / name)
                 Entities.append(entity(name[0:-5], int(json.load(file)['Hero_or_Villain']), self.DM))
             except Exception as e:
                 print('json file ' + name + ' could not be opened')
@@ -125,12 +122,8 @@ class Controller(Frame):
         self.Fighters = []
 
     def Load_Archive_Entities(self): #Archive will be loaded as Objects in Controller (once at start up)
-        if getattr(sys, 'frozen', False):
-            application_path = os.path.dirname(sys.executable)
-        else:
-            application_path = os.path.dirname(__file__)
         
-        Archive_File_List = os.listdir(application_path + '/Archive') #list all files in Archive
+        Archive_File_List = os.listdir(paths.ARCHIVE) #list all files in Archive
         Archive_List = []
         for x in Archive_File_List:
             if '.json' in x:
@@ -142,7 +135,7 @@ class Controller(Frame):
         Entities = []
         for name in Archive_List:
             try:
-                file = open(application_path + '/Archive/' + name)
+                file = open(paths.ARCHIVE / name)
                 Entities.append(entity(name[0:-5], int(json.load(file)['Hero_or_Villain']), self.DM, archive=True))
             except Exception as e:
                 print(e)
@@ -261,11 +254,6 @@ class HomePage_cl(Frame):
         
     def run_statistical_recap(self):
         #in the following all information about the simulation and the Entities that take part are written in the json file
-        if getattr(sys, 'frozen', False):
-            application_path = os.path.dirname(sys.executable)
-        else:
-            application_path = os.path.dirname(__file__)
-
 
         repetitions = int(self.repetitions_entry.get()) #read repetitions from input
         if self.b_print_value.get() == 0:
@@ -274,16 +262,18 @@ class HomePage_cl(Frame):
             simulation_parameters = {"printing_on": 1, "repetitions" : repetitions}
 
         Entities = [{"name" : player.name, "team" : player.team} for player in self.master.Fighters]
-        with open(application_path + "/simulation_parameters.json", "w") as f:  #write to json file
+        with open(paths.RESOURCES / "simulation_parameters.json", "w") as f:  #write to json file
             json.dump({"simulation_parameters": simulation_parameters, "Entities": Entities}, f, indent=4)
 
         #using subprocess functions to call script
 #        p = subprocess.run('python3 run_full_stat_recap.py', shell= True)
-        run_full_stat_recap() #just a test
+        # TODO: wtf is going on, who write what and where?
+        text_result = run_full_stat_recap() #just a test
 
-        text_result = open(application_path + '/simulation_result.txt').read()
-        open(application_path + '/simulation_result.txt', 'w').write('')
+        # text_result = open(paths.SRC.parent / 'simulation_result.txt').read()
         self.open_message(text_result)
+        with open(paths.SRC.parent / 'simulation_result.txt', 'w') as f:
+            f.write(text_result)
     
     def open_message(self, text):
         root = ttk.Toplevel()
@@ -863,12 +853,8 @@ class EntityPage_cl(Frame):
 
     def fetch_default_stats(self):
         #this loads the new character default stats in the page dictionary
-        if getattr(sys, 'frozen', False):
-            application_path = os.path.dirname(sys.executable)
-        else:
-            application_path = os.path.dirname(__file__)
 
-        path = application_path + '/New Character.json'
+        path = paths.RESOURCES / 'New Character.json'
         file = open(path)
         self.name = 'New Character'
         self.stats = json.load(file)
@@ -1041,11 +1027,7 @@ class EntityPage_cl(Frame):
         self.update_page() #update the Entries of page
 
     def save_stats_to_file(self):#Entity_stats is now a dict and saved to json
-        if getattr(sys, 'frozen', False):
-            application_path = os.path.dirname(sys.executable)
-        else:
-            application_path = os.path.dirname(__file__)
-        with open(application_path + '/Entities/'+  self.name + '.json', "w") as f:  #write to json file
+        with open(paths.ENTITIES / (self.name + '.json'), "w") as f:  #write to json file
             json.dump(self.stats, f, indent=4)
 
     def update_Entry(self, Entry, NewText):
@@ -1159,12 +1141,8 @@ class EntityPage_cl(Frame):
 
     def delete_Entity_and_go_back(self, Open_Window):
         Open_Window.destroy()
-        if getattr(sys, 'frozen', False):
-            application_path = os.path.dirname(sys.executable)
-        else:
-            application_path = os.path.dirname(__file__)
-        if os.path.isfile(application_path + '/Entities/' + self.name + '.json'):
-            os.remove(application_path + '/Entities/' + self.name + '.json')
+        if os.path.isfile(paths.ENTITIES / (self.name + '.json')):
+            os.remove(paths.ENTITIES / (self.name + '.json'))
         else:    ## Show an error ##
             print("Error: Entity not found: " + self.name)
         self.master.change_to_HomePage_deleted()

@@ -2,6 +2,7 @@ from datetime import datetime
 import numpy as np
 import os
 import sys
+from . import paths
 
 
 class DungeonMaster:
@@ -10,13 +11,7 @@ class DungeonMaster:
         self.printing_on = False
         self.start_time = datetime.now()
 
-        if getattr(sys, 'frozen', False):
-            # TODO: this means Battlefield.txt must always be next to the executable?
-            application_path = os.path.dirname(sys.executable)
-        else:
-            application_path = os.path.dirname(__file__)
-
-        self.Battlefield = np.genfromtxt(application_path + '/Battlefield.txt', delimiter= ',')      #load Informations from Battlefield
+        self.Battlefield = np.genfromtxt(paths.RESOURCES / 'Battlefield.txt', delimiter= ',')      #load Informations from Battlefield
         self.density = self.Battlefield[0][1]
         #density: 0 - loose, 1 - normal, 2 - dense
         self.rounds_number = 1
