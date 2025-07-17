@@ -1,4 +1,4 @@
-from .Entity_class import entity
+from . import Entity_class
 from .Dmg_class import *
 #Types:
 #con - concentration
@@ -49,7 +49,7 @@ class TokenManager():
         self.player = player
 
         if self.player.DM.AI_blank: #this is only a dirty trick so that VScode shows me the attributes of player and MUST be deactived
-            self.player = entity('test', 0, 0)
+            self.player = Entity_class.entity('test', 0, 0)
         self.TokenList = []
 
         #This dict contains all the subtypes and

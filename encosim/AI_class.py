@@ -3,7 +3,7 @@ import numpy as np
 from . import Choice_class as ch
 from functools import partial
 from .Spell_class import spell
-from .Entity_class import entity
+from . import Entity_class
 
 
 class AI:
@@ -11,7 +11,7 @@ class AI:
     #this class is initialized in the Entity class to controll all the moves and decisions
         self.player = player
         if self.player.DM.AI_blank: #this is only a dirty trick so that VScode shows me the attributes of player and MUST be deactived
-            self.player = entity('test', 0, 0)
+            self.player = Entity_class.entity('test', 0, 0)
 
         #this is later filled in do_your_turn()
         self.allies = [] #only Allies left alive

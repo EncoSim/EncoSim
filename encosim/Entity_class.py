@@ -1,9 +1,10 @@
 from .Ifstatement_class import ifstatements
 from .Dmg_class import dmg
-from .AI_class import AI
-from .Token_class import *
-from .Spell_class import *
+from . import AI_class # import AI
+from . import Token_class # import *
+from . import Spell_class # import *
 
+import inspect
 from random import random, shuffle
 import numpy as np
 import json
@@ -33,7 +34,7 @@ class entity:                                          #A Character
 
         self.data = data
         self.DM = DM
-        self.TM = TokenManager(self)  #Token Manager
+        self.TM = Token_class.TokenManager(self)  #Token Manager
 
     #Base Properties
         self.name = str(name)
@@ -138,12 +139,38 @@ class entity:                                          #A Character
                            'Blight', 'SickeningRadiance', 'WallOfFire', 'Polymorph',
                            'Cloudkill']
         #Add here all Spell classes that are impemented
-        self.Spell_classes = [firebolt, chill_touch, eldritch_blast,
-                         burning_hands, magic_missile, guiding_bolt, entangle, cure_wounds, healing_word, hex, armor_of_agathys, false_life, shield, inflict_wounds, hunters_mark,
-                         aganazzars_sorcher, scorching_ray, shatter, spiritual_weapon,
-                         fireball, lightningBolt, haste, conjure_animals, call_lightning,
-                         blight, sickeningRadiance, wallOfFire, polymorph,
-                         cloudkill]
+        self.Spell_classes = [
+            Spell_class.firebolt,
+            Spell_class.chill_touch,
+            Spell_class.eldritch_blast,
+            Spell_class.burning_hands,
+            Spell_class.magic_missile,
+            Spell_class.guiding_bolt,
+            Spell_class.entangle,
+            Spell_class.cure_wounds,
+            Spell_class.healing_word,
+            Spell_class.hex,
+            Spell_class.armor_of_agathys,
+            Spell_class.false_life,
+            Spell_class.shield,
+            Spell_class.inflict_wounds,
+            Spell_class.hunters_mark,
+            Spell_class.aganazzars_sorcher,
+            Spell_class.scorching_ray,
+            Spell_class.shatter,
+            Spell_class.spiritual_weapon,
+            Spell_class.fireball,
+            Spell_class.lightningBolt,
+            Spell_class.haste,
+            Spell_class.conjure_animals,
+            Spell_class.call_lightning,
+            Spell_class.blight,
+            Spell_class.sickeningRadiance,
+            Spell_class.wallOfFire,
+            Spell_class.polymorph,
+            Spell_class.cloudkill
+        ]
+
         #A Spell Class will only be added to the spellbook, if the Spell name is in self.spell_list
         self.SpellBook = dict()
         for x in self.Spell_classes:
@@ -512,7 +539,8 @@ class entity:                                          #A Character
         self.recharge_aoe_is_charged = False
 
     #AI
-        self.AI = AI(self)
+        from . import AI_class
+        self.AI = AI_class.AI(self)
 
     def rollD20(self, advantage_disadvantage=0): #-1 is disadvantage +1 is advantage
         d20_1 = int(random()*20 + 1)
@@ -1070,7 +1098,7 @@ class entity:                                          #A Character
             quit()
         self.DM.say(self.name + ' uses its turn to dodge', True)
         self.action = 0 #uses an action to do
-        DodgeToken(self.TM) #give self a dodge token
+        Token_class.DodgeToken(self.TM) #give self a dodge token
         #The dodge token sets and resolves self.is_dodge = True
 
 #-------------------Attack Handling----------------------
@@ -1333,7 +1361,7 @@ class entity:                                          #A Character
                 #Inititate Token
                 #This Token resolves at end of turn
                 #If target gets unconcious in this turn, the Token triggers and gives another attack to player
-                GreatWeaponToken(self.TM, GreatWeaponAttackToken(target.TM, subtype='gwa'))
+                Token_class.GreatWeaponToken(self.TM, Token_class.GreatWeaponAttackToken(target.TM, subtype='gwa'))
 
         if target.is_combat_inspired and target.inspired > 0:
             if d20 + self.tohit > target.AC:
@@ -1746,8 +1774,8 @@ class entity:                                          #A Character
             links = []
             auraBonus = self.modifier[5] #wis mod 
             for ally in targets:
-                links.append(ProtectionAuraToken(ally.TM, auraBonus)) #a link for every Ally
-            EmittingProtectionAuraToken(self.TM, links)
+                links.append(Token_class.ProtectionAuraToken(ally.TM, auraBonus)) #a link for every Ally
+            Token_class.EmittingProtectionAuraToken(self.TM, links)
         else: return
 
     def protection_aura(self):
@@ -1848,7 +1876,7 @@ class entity:                                          #A Character
 
         if self.AI.primalCompanionChoice not in self.AI.Choices:
             self.AI.Choices.append(self.AI.primalCompanionChoice) #activate this choice, to attaack with companion 
-        PrimalBeastMasterToken(self.TM, PrimalCompanionToken(companion.TM, subtype='prc')) #The Token will resolve if one of them dies
+        Token_class.PrimalBeastMasterToken(self.TM, Token_class.PrimalCompanionToken(companion.TM, subtype='prc')) #The Token will resolve if one of them dies
         self.DM.say(self.name + ' summons its primal companion', True)
         self.used_primal_companion = True #used it once 
 
@@ -1866,7 +1894,7 @@ class entity:                                          #A Character
         ifstatements(rules, errors, self.DM).check()
 
         self.DM.say(''.join([self.name, ' marked ', target.name, ' as favored foe']), True)
-        FavFoeToken(self.TM, FavFoeMarkToken(target.TM, subtype='fm')) #mark target as fav foe
+        Token_class.FavFoeToken(self.TM, Token_class.FavFoeMarkToken(target.TM, subtype='fm')) #mark target as fav foe
         self.favored_foe_counter -= 1
 
     def use_deflect_missiles(self, target, Dmg, wants_to_return_attack):
@@ -1905,8 +1933,8 @@ class entity:                                          #A Character
         self.DM.say(''.join([self.name, ' used stunning strike, ', target.name]), True)
         self.ki_points -= 1
         if target.make_save(2, DC = self.ki_save_dc) < self.ki_save_dc:
-            LinkToken = StunningStrikedToken(target.TM)
-            StunningStrikeActive(self.TM, [LinkToken])
+            LinkToken = Token_class.StunningStrikedToken(target.TM)
+            Token_class.StunningStrikeActive(self.TM, [LinkToken])
             self.DM.say(''.join([target.name, ' failed their saving throw and is stunned.']), True)
         else:
             self.DM.say(''.join([target.name, ' passed their saving throw and avoided being stunned.']), True)
@@ -2178,7 +2206,7 @@ class entity:                                          #A Character
             #Shoot Web at random Target
             if target.make_save(1, DC = SpiderWebDC) < SpiderWebDC:
                 self.DM.say(target.name + ' is caugth in the web and restrained', True)
-                SpiderToken = Token(target.TM)
+                SpiderToken = Token_class.Token(target.TM)
                 SpiderToken.subtype = 'r'  #restrain Target, no break condition yet
             self.action = 0
         else: 
