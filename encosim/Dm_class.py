@@ -11,8 +11,9 @@ class DungeonMaster:
         self.start_time = datetime.now()
 
         if getattr(sys, 'frozen', False):
+            # TODO: this means Battlefield.txt must always be next to the executable?
             application_path = os.path.dirname(sys.executable)
-        elif __file__:
+        else:
             application_path = os.path.dirname(__file__)
 
         self.Battlefield = np.genfromtxt(application_path + '/Battlefield.txt', delimiter= ',')      #load Informations from Battlefield

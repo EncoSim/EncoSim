@@ -1,5 +1,5 @@
 import cProfile
-from run_time_benchmark import *
+from .run_time_benchmark import *
 
 cProfile.run('run_time_benchmark()', 'profile_results')
 #This function runs the full stat recap with a profile for time management

@@ -1,13 +1,13 @@
-from Entity_class import *
-from Encounter_Simulator import *
-from Dm_class import DungeonMaster
+from .Entity_class import *
+from .Encounter_Simulator import *
+from .Dm_class import DungeonMaster
 import json
 
 def run_full_stat_recap():
     #read out Informations for the simulation from json file
     if getattr(sys, 'frozen', False):
         application_path = os.path.dirname(sys.executable)
-    elif __file__:
+    else:
         application_path = os.path.dirname(__file__)
     f = open(application_path + '/simulation_parameters.json')
     data = json.load(f)

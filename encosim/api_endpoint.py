@@ -1,8 +1,8 @@
 """Endpoint of the simulator for the web API"""
 
-from Entity_class import entity as Entity
-from Encounter_Simulator import full_statistical_recap
-from Dm_class import DungeonMaster
+from .Entity_class import entity as Entity
+from .Encounter_Simulator import full_statistical_recap
+from .Dm_class import DungeonMaster
 
 
 def run_full_stat_recap(

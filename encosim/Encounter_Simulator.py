@@ -3,7 +3,7 @@ from numpy import argmin
 from copy import copy
 from datetime import datetime
 
-from Entity_class import *
+from .Entity_class import *
 
 def fight_ongoing_check(fight): #this function takes the fighters and checks if more then one team is still alive
     fighter_tag_list = []
@@ -288,7 +288,7 @@ def full_statistical_recap(repetition, fighters):
 
     # if getattr(sys, 'frozen', False):
     #     application_path = os.path.dirname(sys.executable)
-    # elif __file__:
+    # else:
     #     application_path = os.path.dirname(__file__)
     # f = open(application_path + '/simulation_result.txt', 'w')
     # f.write(text_result)

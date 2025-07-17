@@ -1,7 +1,5 @@
-if __name__ == '__main__':
-    from Entity_class import entity
-
-from Dmg_class import *
+from .Entity_class import entity
+from .Dmg_class import *
 #Types:
 #con - concentration
 #l - Link

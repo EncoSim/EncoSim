@@ -1,5 +1,5 @@
 import argparse
-from api_endpoint import run_full_stat_recap
+from .api_endpoint import run_full_stat_recap
 
 parser = argparse.ArgumentParser(
     "EncoSim",

@@ -1,12 +1,11 @@
 from random import random, shuffle
 import numpy as np
-import Choice_class as ch
+from . import Choice_class as ch
 from functools import partial
-from Spell_class import spell
+from .Spell_class import spell
+from .Entity_class import entity
 
-if __name__ == '__main__':
-    from Entity_class import entity
-              
+
 class AI:
     def __init__(self, player):
     #this class is initialized in the Entity class to controll all the moves and decisions
@@ -607,6 +606,8 @@ class AI:
 
         AllyScore = []
         for ally in allies:
+            # TODO: FIX: this is never called
+            # self.ally_score has wrong signature and would fail if called
             AllyScore.append(self.ally_score(ally)) #get score
 
         #Return Ally with lowest SCore        

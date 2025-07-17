@@ -1,6 +1,6 @@
-from Entity_class import *
-from Encounter_Simulator import *
-from Dm_class import *
+from .Entity_class import *
+from .Encounter_Simulator import *
+from .Dm_class import *
 
 #run this as Time Benchmark
 

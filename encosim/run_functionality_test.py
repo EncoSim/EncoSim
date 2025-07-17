@@ -1,7 +1,7 @@
-from Entity_class import *
-from Dm_class import *
-from Dmg_class import *
-from Token_class import *
+from .Entity_class import *
+from .Dm_class import *
+from .Dmg_class import *
+from .Token_class import *
 import numpy
 
 def test_conditions(rules, errors):

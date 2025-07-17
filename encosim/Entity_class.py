@@ -1,8 +1,8 @@
-from Ifstatement_class import ifstatements
-from Dmg_class import dmg
-from AI_class import AI
-from Token_class import *
-from Spell_class import *
+from .Ifstatement_class import ifstatements
+from .Dmg_class import dmg
+from .AI_class import AI
+from .Token_class import *
+from .Spell_class import *
 
 from random import random, shuffle
 import numpy as np
@@ -15,7 +15,7 @@ class entity:                                          #A Character
 
         if getattr(sys, 'frozen', False):
             application_path = os.path.dirname(sys.executable)
-        elif __file__:
+        else:
             application_path = os.path.dirname(__file__)
 
         if archive == False:

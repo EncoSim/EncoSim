@@ -1,9 +1,9 @@
-from Ifstatement_class import ifstatements
+from .Ifstatement_class import ifstatements
 from random import random
-from Entity_class import * #should be disabled before running
-from Token_class import *
+from .Entity_class import * #should be disabled before running
+from .Token_class import *
 from numpy import argmax
-from Dmg_class import dmg
+from .Dmg_class import dmg
 
 class spell:
     def __init__(self, player):

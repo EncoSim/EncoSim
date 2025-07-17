@@ -1,4 +1,4 @@
-import Encounter_GUI
+from . import Encounter_GUI
 import sys
 import os
 

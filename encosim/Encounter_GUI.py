@@ -1,5 +1,5 @@
-from Entity_class import *
-from Dm_class import *
+from .Entity_class import *
+from .Dm_class import *
 from tkinter import Frame, Canvas, IntVar, Label, Entry, Misc, StringVar, Listbox, BOTH, VERTICAL, RIGHT, LEFT, ALL, Y, X, HORIZONTAL, BOTTOM
 import ttkbootstrap as ttk
 from tkinter import messagebox
@@ -8,7 +8,7 @@ import os
 import json
 #from ttkbootstrap.constants import *
 import platform #for figuring out windows/macOS
-from run_full_stat_recap import run_full_stat_recap
+from .run_full_stat_recap import run_full_stat_recap
 
 #Controlls the Pages
 class Controller(Frame):
@@ -94,7 +94,7 @@ class Controller(Frame):
     def Load_Entities(self): #Entities will be loaded as Objects in Controller
         if getattr(sys, 'frozen', False):
             application_path = os.path.dirname(sys.executable)
-        elif __file__:
+        else:
             application_path = os.path.dirname(__file__)
         
         Entities_File_List = os.listdir(application_path + '/Entities') #list all files in Entities
@@ -127,7 +127,7 @@ class Controller(Frame):
     def Load_Archive_Entities(self): #Archive will be loaded as Objects in Controller (once at start up)
         if getattr(sys, 'frozen', False):
             application_path = os.path.dirname(sys.executable)
-        elif __file__:
+        else:
             application_path = os.path.dirname(__file__)
         
         Archive_File_List = os.listdir(application_path + '/Archive') #list all files in Archive
@@ -263,7 +263,7 @@ class HomePage_cl(Frame):
         #in the following all information about the simulation and the Entities that take part are written in the json file
         if getattr(sys, 'frozen', False):
             application_path = os.path.dirname(sys.executable)
-        elif __file__:
+        else:
             application_path = os.path.dirname(__file__)
 
 
@@ -865,7 +865,7 @@ class EntityPage_cl(Frame):
         #this loads the new character default stats in the page dictionary
         if getattr(sys, 'frozen', False):
             application_path = os.path.dirname(sys.executable)
-        elif __file__:
+        else:
             application_path = os.path.dirname(__file__)
 
         path = application_path + '/New Character.json'
@@ -1043,7 +1043,7 @@ class EntityPage_cl(Frame):
     def save_stats_to_file(self):#Entity_stats is now a dict and saved to json
         if getattr(sys, 'frozen', False):
             application_path = os.path.dirname(sys.executable)
-        elif __file__:
+        else:
             application_path = os.path.dirname(__file__)
         with open(application_path + '/Entities/'+  self.name + '.json', "w") as f:  #write to json file
             json.dump(self.stats, f, indent=4)
@@ -1161,7 +1161,7 @@ class EntityPage_cl(Frame):
         Open_Window.destroy()
         if getattr(sys, 'frozen', False):
             application_path = os.path.dirname(sys.executable)
-        elif __file__:
+        else:
             application_path = os.path.dirname(__file__)
         if os.path.isfile(application_path + '/Entities/' + self.name + '.json'):
             os.remove(application_path + '/Entities/' + self.name + '.json')

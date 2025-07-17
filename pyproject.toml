@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools >= 77.0.3"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+py-modules = ["encosim"]
+
+[project]
+name = "EncoSim"
+version = "0.0.1"
+requires-python = ">=3.10"
+dependencies = ["numpy"]
+description = "Encounter simulation for pen and paper games like Dungeons and Dragons"
+readme = "README.md"
+license-files = ["LICEN[CS]E*"]
+authors = [
+    { name = "Daniel Kohl", email = "encosim@uber.space" },
+    { name = "Bendix Hartlaub", email = "encosim@uber.space" },
+]
+
+[project.urls]
+Homepage = "https://github.com/EncoSim/EncoSim"
+Issues = "https://github.com/EncoSim/EncoSim/issues"
+
+[project.optional-dependencies]
+gui = ["tk", "tkkbootstrap"]
