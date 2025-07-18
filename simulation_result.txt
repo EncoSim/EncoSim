@@ -1,0 +1,21 @@
+Simulation estimates:
+_____________________
+Difficulty: Brutal
+Win Probability: 79.0 %
+Fight Length: 5.5 +/- 1.2
+Team Health: 36.5 %
+Total Party Kill: 21.0 %
+
+Some might not survive this fight, it is deadly and unforgiving.
+
+----DEATHS----
+Paladin Lv5 dies: 21.0 %
+
+----PLAYER PERFORMANCE----
+Paladin Lv5 : 100/100 
+
+----DAMAGE DONE----
+Paladin Lv5 : 100
+Fire Elemental : 32
+
+----SPELLS CAST----
