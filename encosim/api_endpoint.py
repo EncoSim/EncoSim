@@ -15,9 +15,8 @@ def run_full_stat_recap(
     ---------
     repetition: int
         Number of simulation repetitions
-    teams: list of list of str
-        Each `list of str` represents a party. Party members are given by
-        file names without file extention
+    teams: list of list of json object
+        Each `list of json` represents a party. Party members are given by json files, loaded by the api
 
     Return
     ------
@@ -28,7 +27,7 @@ def run_full_stat_recap(
     dm.block_print()
 
     entities: list[Entity] = []
-    for team, names in enumerate(teams):
-        for name in names:
-            entities.append(Entity(str(name), team, dm))
+    for team, players in enumerate(teams):
+        for player in players:
+            entities.append(Entity(str(player["Name"]), team, dm, external_json=player))
     return full_statistical_recap(int(repetitions), entities)

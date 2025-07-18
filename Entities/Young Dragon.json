@@ -54,5 +54,6 @@
     "StartOfTurnHeal": 0,
     "LegendaryResistances": 0,
     "FavoredFoeDmg": 0.0,
-    "StrategyLevel": 5
+    "StrategyLevel": 5,
+    "Name": "Young Dragon"
 }

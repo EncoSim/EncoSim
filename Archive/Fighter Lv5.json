@@ -44,5 +44,6 @@
     "DestroyUndeadCR": 0.0,
     "ChannelDivinity": 0,
     "ActionSurges": 1,
-    "RageDmg": 0.0
+    "RageDmg": 0.0,
+    "Name": "Fighter Lv5"
 }

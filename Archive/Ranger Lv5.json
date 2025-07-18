@@ -53,5 +53,6 @@
     "AOERechargeType": "fire",
     "StartOfTurnHeal": 0,
     "LegendaryResistances": 0,
-    "FavoredFoeDmg": 2.5
+    "FavoredFoeDmg": 2.5,
+    "Name": "Ranger Lv5"
 }

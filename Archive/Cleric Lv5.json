@@ -44,5 +44,6 @@
     "DestroyUndeadCR": 0.5,
     "ChannelDivinity": 1,
     "ActionSurges": 0,
-    "RageDmg": 0.0
+    "RageDmg": 0.0,
+    "Name": "Cleric Lv5"
 }

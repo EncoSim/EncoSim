@@ -15,14 +15,20 @@ if __name__ == '__main__':
         if '.json' in x:
             File_List.append('./Archive/' + x)  #Use only .json files
     
-    File_List.append('./New Character.json')
+#    File_List.append('./New Character.json')
 
 
     for path in File_List:
+        i = -6
+        name = ''
+        while path[i] != '/':
+            name += path[i]
+            i -= 1
+        print(name[::-1])
         file = open(path)#load new file
         data = json.load(file)
         file.close()
-        data['RageDmg'] = "0"  #This to add a line
+        data['Name'] = str(name[::-1])  #This to add a line
 #        data.pop('test') #this to remove the line
         with open(path, "w") as f:  #write to json file
             json.dump(data, f, indent=4)
